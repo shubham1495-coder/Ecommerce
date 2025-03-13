@@ -3,6 +3,7 @@ package com.Ecommerce.Project.Controller;
 
 import com.Ecommerce.Project.Model.Category;
 import com.Ecommerce.Project.Service.CategoryService;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping("/api/public/categories")
-    public ResponseEntity<String> createCategory(@RequestBody Category category) {
+    public ResponseEntity<String> createCategory(@Valid @RequestBody Category category) {
        categoryService.createCategory(category);
         return new ResponseEntity<>("Category created",HttpStatus.CREATED);
     }
@@ -52,7 +53,7 @@ public class CategoryController {
     }
 
     @PutMapping("/api/admin/categories/{categoryId}")
-    public ResponseEntity<String> updateCategory(@RequestBody Category category,
+    public ResponseEntity<String> updateCategory(@Valid @RequestBody Category category,
                                                  @PathVariable Long categoryId) {
         try{
              Category savedCategory = categoryService.updateCategory(category,categoryId);
